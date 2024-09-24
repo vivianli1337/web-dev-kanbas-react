@@ -41,9 +41,15 @@ return (
                     <li>Flip and cook the other side.</li>
                     <li>Serve and enjoy!</li>
                 </ol>
-                My favorite recipe:
+                My favorite recipe: Soy Garlic Honey Shrimp
                 <ol id="wd-your-favorite-recipe">
-                    {/* complete on your own */}
+                    <li> Make your marinade: sweet soy sauce, garlic, sesame oil, vinegar, and honey.</li>
+                    <li> Marinate the shrimp for at least 15 minutes or up to 8-12 hours.</li>
+                    <li> Prepare your side dish: rice.</li>
+                    <li> Remember: Wash your rice twice, and water to rice ratio should be 1:1.</li>
+                    <li> While waiting for the rice, cook the shrimp with cooking oil. Flip and pour in remaining sauce until cooked through.</li>
+                    <li> After cooking, plate your shrimps with your rice.</li>
+                    <li> Enjoy! </li>
                 </ol>
             <h5>Unordered List Tag</h5>
                 My favorite books (in no particular order)
@@ -56,7 +62,11 @@ return (
                 </ul>
                 Your favorite books (in no particular order)
                 <ul id="wd-your-books">
-                    {/* complete on your own */}
+                    <li> Percy Jackson series</li>
+                    <li> Mortal Instrument series</li>
+                    <li> Red Queen</li>
+                    <li> Lady Midnight</li>
+                    <li> Harry Potter series</li>
                 </ul>
         </div>
         <div id="wd-tables">
@@ -174,7 +184,7 @@ return (
                     <input type="checkbox" name="check-genre" id="wd-chkbox-fantasy"/>
                     <label htmlFor="wd-chkbox-fantasy">Fantasy</label>
 
-                    <h4 id="wd-dropdowns">Dropdowns</h4>
+                <h4 id="wd-dropdowns">Dropdowns</h4>
 
                 <h5>Select one</h5>
                     <label htmlFor="wd-select-one-genre"> Favorite movie genre: </label><br/>
