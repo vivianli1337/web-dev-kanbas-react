@@ -125,15 +125,17 @@ export default function AssignmentEditor() {
             value="2024-05-20"/><br/>
           </td>
         </tr>  <br/>
-        
-        <tr> <br/> 
-          <td></td>
-          <td align="right" valign="top">
+        </table>
+     <hr/>   
+        <table width="100%">
+        <tr>
+            <td></td>
+            <td align="right" valign="bottom">
             <button>Cancel</button>
             <button>Save</button>
-          </td>
+            </td>
         </tr>
-      </table>
+        </table>
     </div>
   );
 }
