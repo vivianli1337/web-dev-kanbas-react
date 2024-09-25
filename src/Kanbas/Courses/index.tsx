@@ -23,10 +23,11 @@ export default function Courses() {
               <Route path="Assignments" element={<Assignments />} />
               <Route path="Assignments/:aid" element={<AssignmentEditor />} />
               <Route path="People" element={<h2>People</h2>} />
-              
+
             </Routes>
           </td>
         </tr>
       </table>
     </div>
-);}
+  );
+}
