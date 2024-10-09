@@ -1,4 +1,3 @@
-// import LessonControlButtons from "./LessonControlButtons";
 import { BsGripVertical } from "react-icons/bs";
 
 export default function AssignmentEditor() {
