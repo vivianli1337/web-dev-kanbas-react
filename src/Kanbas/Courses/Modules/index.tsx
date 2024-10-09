@@ -26,7 +26,7 @@ export default function Modules() {
             </li>
             <li className="wd-lesson list-group-item p-3 ps-1">
               <BsGripVertical className="me-2 fs-3" />
-              Learn what is Web Development
+              Learn What Is Web Development
               <LessonControlButtons />
             </li>
             <li className="wd-lesson list-group-item p-3 ps-1">

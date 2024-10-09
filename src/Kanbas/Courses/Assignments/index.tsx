@@ -9,16 +9,19 @@ export default function Assignments() {
       <ul id="wd-assignments" className="list-group rounded-0">
         <li className="wd-assignment list-group-item p-0 mb-5 fs-5 border-gray">
           <div className="wd-title p-3 bg-secondary"> 
-            <BsGripVertical/> ASSIGNMENTS <ModuleControlButtons/> </div>
-          <li className="wd-lesson list-group-item p-3 ps-1">  <BsGripVertical/>A1 <br />
+            <BsGripVertical/> ASSIGNMENTS <ModuleControlButtons/> </div> 
+          <li className="wd-lesson list-group-item p-3 ps-1">  <BsGripVertical/> <a className="wd-assignment-link"
+              href="#/Kanbas/Courses/1234/Assignments/123"> A1</a> <br />
           <span style={{ color: "red" }}> Multiple Modules </span> <span> | <b> Not availabile until </b> May 6 at 12:00 am | <br />
           <b>Due </b>May 13 at 11:59 am | 100 pts </span>
           </li>
-          <li className="wd-lesson list-group-item p-3 ps-1"> A2 <br />
+          <li className="wd-lesson list-group-item p-3 ps-1"> <BsGripVertical/> <a className="wd-assignment-link"
+              href="#/Kanbas/Courses/1234/Assignments/123"> A2</a> <br />
           <span style={{ color: "red" }}> Multiple Modules </span> <span> | <b> Not availabile until </b> May 13 at 12:00 am | <br />
           <b>Due </b>May 20 at 11:59 am | 100 pts </span>
           </li>
-          <li className="wd-lesson list-group-item p-3 ps-1"> A3 <br />
+          <li className="wd-lesson list-group-item p-3 ps-1"> <BsGripVertical/> <a className="wd-assignment-link"
+              href="#/Kanbas/Courses/1234/Assignments/123"> A3</a> <br />
           <span style={{ color: "red" }}> Multiple Modules </span> <span> | <b> Not availabile until </b> May 20 at 12:00 am | <br />
           <b>Due </b>May 27 at 11:59 am | 100 pts </span>
           </li>

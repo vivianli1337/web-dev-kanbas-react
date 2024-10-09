@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 export default function Signin() {
     return (
-        <div id="wd-signin-screen">
+        <div id="wd-signin-screen" className="d-block">
             <h1>Sign in</h1>
             <input id="wd-username"
                 placeholder="username"
