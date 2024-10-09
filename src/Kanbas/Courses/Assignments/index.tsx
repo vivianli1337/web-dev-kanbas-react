@@ -2,8 +2,7 @@ import AssignmentControls from "./Assignmentcontrol";
 import { BsGripVertical } from "react-icons/bs";
 import ModuleControlButtons from "./ModuleControlButtons ";
 import { MdOutlineAssignment } from "react-icons/md";
-import GreenCheckmark from "./GreenCheckmark";
-import { IoEllipsisVertical } from "react-icons/io5";
+import AssignmentControlButtons from "./AssignmentControlButtons";
 
 
 
@@ -39,8 +38,7 @@ export default function Assignments() {
                   <b>Due </b>May 13 at 11:59 am | 100 pts </span>
               </div>
               <div className="col-auto">
-                <GreenCheckmark />
-                <IoEllipsisVertical />
+                <AssignmentControlButtons/>
               </div>
             </div>
           </li>
@@ -58,8 +56,7 @@ export default function Assignments() {
                   <b>Due </b>May 20 at 11:59 am | 100 pts </span>
               </div>
               <div className="col-auto">
-                <GreenCheckmark />
-                <IoEllipsisVertical />
+                <AssignmentControlButtons/>
               </div>
             </div>
           </li>
@@ -77,8 +74,7 @@ export default function Assignments() {
                   <b>Due </b>May 27 at 11:59 am | 100 pts </span>
               </div>
               <div className="col-auto">
-                <GreenCheckmark />
-                <IoEllipsisVertical />
+                <AssignmentControlButtons/>
               </div>
             </div>
           </li>

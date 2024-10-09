@@ -1,9 +1,13 @@
 import { FaPlus } from "react-icons/fa6";
+import { BsSearch } from "react-icons/bs";
 
 
 export default function AssignmentControls() {
     return (
         <div id="wd-assignment-controls" className="text-nowrap d-flex">
+            <span className="me-1">
+                <BsSearch />
+            </span>
             <input id="wd-search" placeholder="Search..." 
             className="form-control border-1 position-relative me-2 float-end" 
             style={{ bottom: "1px" }} />
