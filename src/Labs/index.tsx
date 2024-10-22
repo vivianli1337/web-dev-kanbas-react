@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 
 export default function Labs() {
     return (
-        <div id="wd-labs">
+        <div className="p-3" id="wd-labs">
             <h1>Labs</h1>
             <h3>By: Vivian Li, Section 2</h3>
             <TOC />
