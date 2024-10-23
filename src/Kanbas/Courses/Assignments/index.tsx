@@ -3,10 +3,15 @@ import { BsGripVertical } from "react-icons/bs";
 import ModuleControlButtons from "./ModuleControlButtons ";
 import { MdOutlineAssignment } from "react-icons/md";
 import AssignmentControlButtons from "./AssignmentControlButtons";
+import { useParams } from "react-router";
+import * as db from "../../Database";
+import { Link } from "react-router-dom";
 
 
 
 export default function Assignments() {
+  const { cid } = useParams();
+  const assignments = db.assignments;
   return (
     <div id="wd-assignments">
       <AssignmentControls /> <br /> <br /> 
@@ -24,24 +29,9 @@ export default function Assignments() {
             </div>
           </div>
 
-          {/* Assignment Items */}
-          <li className="wd-lesson list-group-item p-3 ps-1">
-            <div className="row align-items-center">
-              <div className="col-auto">
-                <BsGripVertical />
-                <MdOutlineAssignment />
-              </div>
-              <div className="col">
-                <a className="wd-assignment-link" href="#/Kanbas/Courses/1234/Assignments/123"> A1</a> <br />
-                <span style={{ color: "red" }}> Multiple Modules </span>
-                <span> | <b> Not available until </b> May 6 at 12:00 am | <br />
-                  <b>Due </b>May 13 at 11:59 am | 100 pts </span>
-              </div>
-              <div className="col-auto">
-                <AssignmentControlButtons/>
-              </div>
-            </div>
-          </li>
+          {assignments
+          // .filter((assignment: any) => assignment.course === cid)
+          .map((assignment: any) => (
 
           <li className="wd-lesson list-group-item p-3 ps-1">
             <div className="row align-items-center">
@@ -50,34 +40,17 @@ export default function Assignments() {
                 <MdOutlineAssignment />
               </div>
               <div className="col">
-                <a className="wd-assignment-link" href="#/Kanbas/Courses/1234/Assignments/123"> A2</a> <br />
+                <Link className="wd-assignment-link" to={`/Kanbas/Courses/${assignment.course}/Assignments/${assignment._id}`}
+                > {assignment.title}</Link> <br />
                 <span style={{ color: "red" }}> Multiple Modules </span>
-                <span> | <b> Not available until </b> May 13 at 12:00 am | <br />
-                  <b>Due </b>May 20 at 11:59 am | 100 pts </span>
+                <span> | <b> Not available until </b> {assignment.availdate} at {assignment.availtime}  | <br />
+                <b>Due </b> {assignment.duedate} at {assignment.duetime} | {assignment.points} </span>
               </div>
               <div className="col-auto">
                 <AssignmentControlButtons/>
               </div>
             </div>
-          </li>
-
-          <li className="wd-lesson list-group-item p-3 ps-1">
-            <div className="row align-items-center">
-              <div className="col-auto">
-                <BsGripVertical />
-                <MdOutlineAssignment />
-              </div>
-              <div className="col">
-                <a className="wd-assignment-link" href="#/Kanbas/Courses/1234/Assignments/123"> A3</a> <br />
-                <span style={{ color: "red" }}> Multiple Modules </span>
-                <span> | <b> Not available until </b> May 20 at 12:00 am | <br />
-                  <b>Due </b>May 27 at 11:59 am | 100 pts </span>
-              </div>
-              <div className="col-auto">
-                <AssignmentControlButtons/>
-              </div>
-            </div>
-          </li>
+          </li>))}
         </li>
       </ul>
     </div>

@@ -278,7 +278,7 @@ export default function Lab1() {
                 <a id="wd-lipsum" href="https://www.lipsum.com"> click here </a>
                 to get dummy text<br />
                 Github Repo:
-                <a id="wd-github" href="https://github.com/vivianli1337/kanbas-react-web-app/tree/a1"> click here </a>
+                <a id="wd-github" href="https://github.com/vivianli1337/kanbas-react-web-app/tree/a3"> click here </a>
                 <br />
             </div>
         </div>
