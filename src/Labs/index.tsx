@@ -7,22 +7,26 @@ import Lab4 from "./Lab4";
 import Lab5 from "./Lab5";
 import Lab6 from "./Lab6";
 import { Link } from 'react-router-dom';
+import store from "./store";
+import { Provider } from "react-redux";
 
 export default function Labs() {
     return (
-        <div className="p-3" id="wd-labs">
-            <h1>Labs</h1>
-            <h3>By: Vivian Li, Section 2</h3>
-            <TOC />
-            <Routes>
-                <Route path="/" element={<Navigate to="Lab1" />} />
-                <Route path="Lab1" element={<Lab1 />} />
-                <Route path="Lab2" element={<Lab2 />} />
-                <Route path="Lab3/*" element={<Lab3 />} />
-                <Route path="Lab4" element={<Lab4 />} />
-                <Route path="Lab5" element={<Lab5 />} />
-                <Route path="Lab6" element={<Lab6 />} />
-            </Routes>
-        </div>
+        <Provider store={store}>
+            <div className="p-3" id="wd-labs">
+                <h1>Labs</h1>
+                <h3>By: Vivian Li, Section 2</h3>
+                <TOC />
+                <Routes>
+                    <Route path="/" element={<Navigate to="Lab1" />} />
+                    <Route path="Lab1" element={<Lab1 />} />
+                    <Route path="Lab2" element={<Lab2 />} />
+                    <Route path="Lab3/*" element={<Lab3 />} />
+                    <Route path="Lab4" element={<Lab4 />} />
+                    <Route path="Lab5" element={<Lab5 />} />
+                    <Route path="Lab6" element={<Lab6 />} />
+                </Routes>
+            </div>
+        </Provider>
     );
 }
