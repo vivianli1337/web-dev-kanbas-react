@@ -15,9 +15,6 @@ export default function Assignments() {
 
     return (
         <div id="wd-assignments">
-            {/* <AssignmentControls setAssignmentName={setAssignmentName} AssignmentName={AssignmentName} addAssignment={() => {
-        dispatch(addAssignment({ name: AssignmentName, course: cid }));
-        setAssignmentName("");} */}
         <AssignmentControls />
             <br /> <br />
             <ul className="list-group rounded-0">
