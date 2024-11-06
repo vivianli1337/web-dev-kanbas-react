@@ -35,6 +35,10 @@ const assignmentsSlice = createSlice({
                 a._id === assignmentId ? { ...a, completed: true } : a
             );
         },
+        
+        setAssignment: (state, action) => {
+            state.assignments = action.payload;
+        },
     },
 });
 
@@ -46,5 +50,3 @@ export const {
 } = assignmentsSlice.actions;
 
 export default assignmentsSlice.reducer;
-
-// reducer.tsx

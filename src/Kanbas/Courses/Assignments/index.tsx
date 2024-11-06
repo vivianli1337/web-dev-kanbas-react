@@ -7,6 +7,7 @@ import ModuleControlButtons from "./ModuleControlButtons ";
 import { useParams } from "react-router";
 import * as db from "../../Database";
 import { Link } from "react-router-dom";
+import { addAssignment } from "./reducer";
 
 export default function Assignments() {
     const { cid } = useParams();
@@ -14,7 +15,10 @@ export default function Assignments() {
 
     return (
         <div id="wd-assignments">
-            <AssignmentControls /> 
+            {/* <AssignmentControls setAssignmentName={setAssignmentName} AssignmentName={AssignmentName} addAssignment={() => {
+        dispatch(addAssignment({ name: AssignmentName, course: cid }));
+        setAssignmentName("");} */}
+        <AssignmentControls />
             <br /> <br />
             <ul className="list-group rounded-0">
                 <li className="wd-assignment list-group-item p-0 mb-5 fs-5 border-gray">
