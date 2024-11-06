@@ -5,12 +5,15 @@ import React, { useState } from "react";
 import AssignmentEditor from "./AssignmentEditor";
 
 export default function AssignmentControls() {
-    const { cid } = useParams(); 
+    const { cid } = useParams();
     const [assignmentName, setAssignmentName] = useState("");
+    const [dueDate, setDueDate] = useState(""); // Initialize dueDate
+    const [availableFrom, setAvailableFrom] = useState(""); // Initialize availableFrom
+    const [availableUntil, setAvailableUntil] = useState(""); // Initialize availableUntil
 
     const saveAssignment = () => {
         // Implement save logic here
-        console.log(`Assignment saved: ${assignmentName}`);
+        console.log(`Assignment saved: ${assignmentName}, Due: ${dueDate}, Available From: ${availableFrom}, Available Until: ${availableUntil}`);
     };
 
     return (
@@ -51,6 +54,12 @@ export default function AssignmentControls() {
                 dialogTitle="Add Assignment" 
                 assignmentName={assignmentName} 
                 setAssignmentName={setAssignmentName} 
+                dueDate={dueDate} 
+                setDueDate={setDueDate} 
+                availableFrom={availableFrom} 
+                setAvailableFrom={setAvailableFrom} 
+                availableUntil={availableUntil} 
+                setAvailableUntil={setAvailableUntil} 
                 saveAssignment={saveAssignment} 
             />
         </div>
