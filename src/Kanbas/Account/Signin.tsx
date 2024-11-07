@@ -15,7 +15,6 @@ export default function Signin() {
         dispatch(setCurrentUser(user));
         navigate("/Kanbas/Dashboard");
     };
-
     return (
         <div id="wd-signin-screen" className="d-block">
             <h1>Sign in</h1>
@@ -29,9 +28,8 @@ export default function Signin() {
                 id="wd-password"
                 placeholder="password" type="password"
                 className="form-control mb-2" />
-            <button onClick={signin} id="wd-signin-btn"
-                className="btn btn-primary w-100">
-                Sign in </button>
+            <button onClick={signin} id="wd-signin-btn" className="btn btn-primary w-100" > Sign in </button>
+
             <Link id="wd-signup-link" to="/Kanbas/Account/Signup">Sign up</Link>
         </div>
     );

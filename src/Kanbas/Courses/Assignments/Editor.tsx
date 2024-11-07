@@ -1,5 +1,3 @@
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import * as db from "../../Database";
 import { Link } from "react-router-dom";
@@ -7,25 +5,22 @@ import { Link } from "react-router-dom";
 export default function AssignmentEditor() {
   const { cid, aId } = useParams();
   const assignments = db.assignments;
-
-  // Retrieve user role from Redux store
-  const { currentUser } = useSelector((state: any) => state.accountReducer);
-  const isFaculty = currentUser?.role === "FACULTY";
-
   return (
     <div id="wd-assignments-editor" className="container">
-      <h3><label htmlFor="wd-name">Assignment Name</label></h3>
+      <h3> <label htmlFor="wd-name">Assignment Name</label> </h3>
       {assignments
         .filter((assignment: any) => assignment.course === cid && assignment._id === aId)
         .map((assignment) => (
           <div key={assignment._id}>
             <div className="form-group mb-3">
-              <input id="wd-name" defaultValue={assignment.title} className="form-control" readOnly={!isFaculty} />
+              <input id="wd-name" value={assignment.title} className="form-control" />
             </div>
 
             <div className="form-group mb-3">
               <label htmlFor="wd-description">Description</label>
-              <textarea id="wd-description" cols={40} rows={10} className="form-control" defaultValue={assignment.description} readOnly={!isFaculty} />
+              <textarea id="wd-description" cols={40} rows={10} className="form-control">
+                {assignment.description}
+              </textarea>
             </div>
 
             <div className="row mb-3">
@@ -33,7 +28,7 @@ export default function AssignmentEditor() {
                 <label htmlFor="wd-points" className="fw-bold">Points</label>
               </div>
               <div className="col-md-8">
-                <input id="wd-points" defaultValue="100" className="form-control w-25" readOnly={!isFaculty} />
+                <input id="wd-points" value={100} className="form-control w-25" />
               </div>
             </div>
 
@@ -42,14 +37,15 @@ export default function AssignmentEditor() {
                 <label htmlFor="wd-group" className="fw-bold">Assignment Group</label>
               </div>
               <div className="col-md-8">
-                <select id="wd-group" className="form-select w-50" defaultValue="ASSIGNMENTS" disabled={!isFaculty}>
-                  <option value="ASSIGNMENTS">ASSIGNMENTS</option>
+                <select id="wd-group" className="form-select w-50">
+                  <option selected value="ASSIGNMENTS">ASSIGNMENTS</option>
                   <option value="QUIZZES">QUIZZES</option>
                   <option value="EXAMS">EXAMS</option>
                   <option value="PROJECT">PROJECT</option>
                 </select>
               </div>
             </div>
+
             <div className="row mb-3">
               <div className="col-md-4 text-md-end d-flex align-items-center">
                 <label htmlFor="wd-display-grade-as" className="fw-bold">Display Grade as</label>
@@ -135,14 +131,12 @@ export default function AssignmentEditor() {
                   </div>
                 </div>
               </div>
-            </div> 
+            </div>
 
             <hr />
             <div className="d-flex justify-content-end">
               <Link to={`/Kanbas/Courses/${cid}/Assignments`} className="btn btn-secondary me-2">Cancel</Link>
-              {isFaculty && (
-                <Link to={`/Kanbas/Courses/${cid}/Assignments`} className="btn btn-danger">Save</Link>
-              )}
+              <Link to={`/Kanbas/Courses/${cid}/Assignments`} className="btn btn-danger">Save</Link>
             </div>
           </div>
         ))}

@@ -5,13 +5,11 @@ import { Routes, Route, Navigate } from "react-router";
 import AccountNavigation from "./Navigation";
 import { useSelector } from "react-redux";
 
-
-
 export default function Account() {
   const { currentUser } = useSelector((state: any) => state.accountReducer);
 
   return (
-    <div id="wd-account-screen" className = "w-50">
+    <div id="wd-account-screen" className="w-50">
       <div className="d-flex">
         <div className="d-none d-md-block">
           <AccountNavigation />

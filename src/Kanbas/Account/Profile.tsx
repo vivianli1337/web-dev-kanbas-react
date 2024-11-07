@@ -1,7 +1,8 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Link, useNavigate, useNavigationType } from "react-router-dom";
 import { setCurrentUser } from "./reducer";
+import { useState, useEffect } from "react";
+
 export default function Profile() {
   const [profile, setProfile] = useState<any>({});
   const dispatch = useDispatch();
@@ -35,8 +36,10 @@ export default function Profile() {
             onChange={(e) => setProfile({ ...profile, email: e.target.value })} />
           <select onChange={(e) => setProfile({ ...profile, role: e.target.value })}
             className="form-control mb-2" id="wd-role">
-            <option value="USER">User</option>            <option value="ADMIN">Admin</option>
-            <option value="FACULTY">Faculty</option>      <option value="STUDENT">Student</option>
+            <option value="USER">User</option>
+            <option value="ADMIN">Admin</option>
+            <option value="FACULTY">Faculty</option>
+            <option value="STUDENT">Student</option>
           </select>
           <button onClick={signout} className="btn btn-danger w-100 mb-2" id="wd-signout-btn">
             Sign out
