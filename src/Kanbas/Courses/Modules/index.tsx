@@ -5,7 +5,7 @@ import { BsGripVertical } from "react-icons/bs";
 import { useParams } from "react-router";
 import * as db from "../../Database";
 import React, { useState } from "react";
-import { addModule, editModule, updateModule, deleteModule }  from "./reducer";
+import { addModule, editModule, updateModule, deleteModule } from "./reducer";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function Modules() {
@@ -14,6 +14,8 @@ export default function Modules() {
   const [moduleName, setModuleName] = useState("");
   const { modules } = useSelector((state: any) => state.modulesReducer);
   const dispatch = useDispatch()
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
+  const { enrollments, users } = db;
   // const addModule = () => {
   //   setModules([...modules, {
   //     _id: new Date().getTime().toString(),
@@ -56,11 +58,15 @@ export default function Modules() {
                     }}
                     defaultValue={module.name} />
                 )}
-                <ModuleControlButtons moduleId={module._id}
-                  deleteModule={(moduleId) => {
-                    dispatch(deleteModule(moduleId));
-                  }}
-                  editModule={(moduleId) => dispatch(editModule(moduleId))} />
+                {currentUser.role === "FACULTY" && (
+                  <>
+                    <ModuleControlButtons moduleId={module._id}
+                      deleteModule={(moduleId) => {
+                        dispatch(deleteModule(moduleId));
+                      }}
+                      editModule={(moduleId) => dispatch(editModule(moduleId))} />
+                  </> )
+                }
               </div>
               {module.lessons && (
                 <ul className="wd-lessons list-group rounded-0">
