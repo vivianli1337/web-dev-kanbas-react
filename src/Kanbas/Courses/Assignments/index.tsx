@@ -17,8 +17,6 @@ export default function Assignments() {
     const { enrollments, users } = db;
     const { assignments } = useSelector((state: any) => state.assignmentsReducer);
     const dispatch = useDispatch();
-    
-    
 
     return (
         <div id="wd-assignments">
@@ -59,9 +57,10 @@ export default function Assignments() {
                                         <span> | <b> Not available until </b> {assignment.availdate} at {assignment.availtime}  | <br />
                                             <b>Due </b> {assignment.duedate} at {assignment.duetime} | {assignment.points} </span>
                                     </div>
-                                    <div className="col-auto">
-                                        <AssignmentControlButtons assignmentID={assignment._id} />
-                                    </div>
+                                    {currentUser.role === "FACULTY" && (
+                                        <div className="col-auto">
+                                            <AssignmentControlButtons assignmentID={assignment._id} />
+                                        </div>)}
                                 </div>
                             </li>))}
                 </li>
