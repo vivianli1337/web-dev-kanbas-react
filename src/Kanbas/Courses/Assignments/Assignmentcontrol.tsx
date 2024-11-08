@@ -5,13 +5,7 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 
-export default function AssignmentControls(
-    // { assignmentsId, deleteAssignments, editAssignments }: {
-    //     assignmentsId: string; deleteAssignments: (moduleId: string) => void;
-    //     editAssignments: (assignmentsId: string) => void
-    // }
-
-) {
+export default function AssignmentControls() {
     const { currentUser } = useSelector((state: any) => state.accountReducer);
     const { enrollments, users } = db;
     const navigate = useNavigate();

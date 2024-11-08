@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import * as db from "./Database/index";
 import { useDispatch, useSelector } from "react-redux";
 import { addEnrollment, deleteEnrollment } from "./enrollmentsReducer";
 import * as uuid from 'uuid';
