@@ -3,7 +3,6 @@ import GreenCheckmark from "./GreenCheckmark";
 import { FaTrash } from "react-icons/fa";
 
 export default function AssignmentControlButtons(
-    // { assignmentID, deleteAssignment }: { assignmentID: string; deleteAssignment: (assignmentID: string) => void; }
 ) {
     return (
         <div className="float-end">

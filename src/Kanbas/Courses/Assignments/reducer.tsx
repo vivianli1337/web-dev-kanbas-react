@@ -14,12 +14,12 @@ const assignmentsSlice = createSlice({
                 _id: new Date().getTime().toString(),
                 title: assignment.title,
                 course: assignment.course,
+                description: assignment.description,
+                points: assignment.points,
                 availdate: assignment.availdate,
                 availtime: assignment.availtime,
                 duedate: assignment.duedate,
                 duetime: assignment.duetime,
-                points: assignment.points,
-                description: assignment.description,
             };
             state.assignments = [...state.assignments, newAssignment];
         },

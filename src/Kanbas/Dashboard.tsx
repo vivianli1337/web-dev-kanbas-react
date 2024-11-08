@@ -62,7 +62,8 @@ export default function Dashboard(
       <h2 id="wd-dashboard-published">Published Courses ({courses.length})</h2> <hr />
       <div id="wd-dashboard-courses" className="row">
         <div className="row row-cols-1 row-cols-md-5 g-4">
-          {courses.filter((course) =>
+          {courses
+          .filter((course) =>
             enrollments.some((enrollment: any) => showAllCourses ? true : checkEnrollment(enrollment, course)))
             .map((course) => {
               const enrollment = enrollments.find((enrollment: any) => checkEnrollment(enrollment, course));
