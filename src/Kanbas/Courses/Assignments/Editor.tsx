@@ -1,16 +1,49 @@
-import { useParams } from "react-router";
+// 
+import { useNavigate, useParams } from "react-router";
 import * as db from "../../Database";
 import { Link } from "react-router-dom";
-
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { addAssignment, updateAssignment} from "./reducer";
+ 
 export default function AssignmentEditor() {
   const { cid, aId } = useParams();
-  const assignments = db.assignments;
+  const assignments = useSelector(
+    (state: any) => state.assignmentReducer.assignments
+  );
+  const dispatch = useDispatch();
+  const assignment = assignments.find((assignment: any) => assignment._id == aId) || {
+    title: "",
+    description: "",
+    points: 0,
+    due: "",
+    from: "",
+    course: cid,
+    _id: new Date().getTime().toString(),
+  }
+  const [selectedAssignment, setSelectedAssignment] = useState(assignment);
+ 
+  const navigate = useNavigate();
+  const isEdit = assignments.findIndex((a : any) => a._id === aId) !== -1;
+
+  const handleSave = async () => {
+    if(isEdit) {
+      await dispatch(updateAssignment(selectedAssignment))
+    } else {
+      await dispatch(addAssignment(selectedAssignment));
+    } 
+    navigate(`/Kanbas/Courses/${cid}/Assignments`);
+  }
+
   return (
     <div id="wd-assignments-editor" className="container">
       <h3> <label htmlFor="wd-name">Assignment Name</label> </h3>
-      {assignments
-        .filter((assignment: any) => assignment.course === cid && assignment._id === aId)
-        .map((assignment) => (
+
+      {/* {assignments
+        .filter((assignment: any) => assignment.course === cid
+          assignment._id === aId
+          
+          .map((assignment) => ( */}
           <div key={assignment._id}>
             <div className="form-group mb-3">
               <input id="wd-name" value={assignment.title} className="form-control" />
@@ -139,7 +172,7 @@ export default function AssignmentEditor() {
               <Link to={`/Kanbas/Courses/${cid}/Assignments`} className="btn btn-danger">Save</Link>
             </div>
           </div>
-        ))}
+        
     </div>
   );
 }
