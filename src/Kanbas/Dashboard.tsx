@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addEnrollment, deleteEnrollment } from "./enrollmentsReducer";
 import * as uuid from 'uuid';
 
+
 export default function Dashboard(
   { courses, course, setCourse, addNewCourse,
     deleteCourse, updateCourse }: {
