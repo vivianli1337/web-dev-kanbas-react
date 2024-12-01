@@ -11,9 +11,11 @@ import ProtectedRoute from "./Account/ProtectedRoute";
 import Session from "./Account/Session";
 
 import * as client from "./Courses/client";
+import * as courseClient from "./Courses/client";
 import * as userClient from "./Account/client";
+
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react'; 
+import { useEffect } from 'react';
 
 
 export default function Kanbas() {
@@ -36,7 +38,8 @@ export default function Kanbas() {
     startDate: "2023-09-10", endDate: "2023-12-15",
     image: "/images/reactjs.jpg", description: "New Description"
   });
-  const updateCourse = () => {
+  const updateCourse = async () => {
+    await courseClient.updateCourse(course);
     setCourses(
       courses.map((c) => {
         if (c._id === course._id) {
@@ -47,16 +50,21 @@ export default function Kanbas() {
       })
     );
   };
-  const addNewCourse = () => {
-    const newCourse = {
-      ...course,
-      _id: new Date().getTime().toString()
-    };
+
+  const addNewCourse = async () => {
+    const newCourse = await userClient.createCourse(course);
+    // const newCourse = {
+    //   ...course,
+    //   _id: new Date().getTime().toString()
+    // };
     setCourses([...courses, newCourse]);
   };
-  const deleteCourse = (courseId: string) => {
+
+  const deleteCourse = async (courseId: string) => {
+    const status = await courseClient.deleteCourse(courseId);
     setCourses(courses.filter((course) => course._id !== courseId));
   };
+
   return (
     <Session>
       <div id="wd-kanbas">
