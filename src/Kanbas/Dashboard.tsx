@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addEnrollment, deleteEnrollment } from "./enrollmentsReducer";
-import * as uuid from 'uuid';
+import { addEnrollment, deleteEnrollment, setEnrollments } from "./enrollmentsReducer";
+import * as enrollmentsClient from "./enrollmentsClient";
+// import * as uuid from 'uuid';
 
 
 export default function Dashboard(
@@ -21,7 +22,7 @@ export default function Dashboard(
     setShowAllCourses(state => !state);
   };
 
-  const checkEnrollment = (enrollment: any, course: any) => 
+  const checkEnrollment = (enrollment: any, course: any) =>
     enrollment.user === currentUser._id && enrollment.course === course._id;
 
   const handleLinkClick = (event: any, course: any) => {
@@ -29,6 +30,31 @@ export default function Dashboard(
       event.preventDefault();
     }
   };
+
+  //enrollment
+  const saveEnrollment = async (event: any, course: any) => {
+    event.preventDefault();
+    const enrollment = await enrollmentsClient.createEnrollment(currentUser._id, course._id);
+    dispatch(addEnrollment(enrollment));
+  };
+
+  const removeEnrollment = async (event: any, enrollment: any) => {
+    event.preventDefault();
+    await enrollmentsClient.deleteEnrollment(enrollment._id);
+    dispatch(deleteEnrollment(enrollment._id));
+  }
+
+  //enrollment
+  useEffect(() => {
+    const fetchEnrollments = async () => {
+      console.log('fetching enrollments');
+      const enrollments = await enrollmentsClient.findEnrollments(currentUser._id);
+      dispatch(setEnrollments(enrollments));
+    };
+
+    fetchEnrollments();
+  }, []);
+  
 
   return (
     <div className="p-4" id="wd-dashboard">
@@ -63,8 +89,8 @@ export default function Dashboard(
       <div id="wd-dashboard-courses" className="row">
         <div className="row row-cols-1 row-cols-md-5 g-4">
           {courses
-          .filter((course) =>
-            enrollments.some((enrollment: any) => showAllCourses ? true : checkEnrollment(enrollment, course)))
+            .filter((course) =>
+              enrollments.some((enrollment: any) => showAllCourses ? true : checkEnrollment(enrollment, course)))
             .map((course) => {
               const enrollment = enrollments.find((enrollment: any) => checkEnrollment(enrollment, course));
               return (
@@ -86,21 +112,24 @@ export default function Dashboard(
                         >
                           {course.description}
                         </p>
-                        
+
                         {showAllCourses ? (
                           !enrollment ? (
                             <button className="btn btn-success" onClick={(event) => {
-                              event.preventDefault();
-                              dispatch(addEnrollment({ _id: uuid.v4(), user: currentUser._id, course: course._id }));
-                            }}> 
-                              Enroll 
+                              // event.preventDefault();
+                              // dispatch(addEnrollment({ _id: uuid.v4(), user: currentUser._id, course: course._id }));
+                              saveEnrollment(event, course)
+                            }}>
+                              Enroll
                             </button>
                           ) : (
                             <button className="btn btn-danger" onClick={(event) => {
-                              event.preventDefault();
-                              dispatch(deleteEnrollment(enrollment._id));
-                            }}> 
-                              Unenroll 
+                              // event.preventDefault();
+                              // dispatch(deleteEnrollment(enrollment._id));
+                              removeEnrollment(event, enrollment)
+
+                            }}>
+                              Unenroll
                             </button>
                           )
                         ) : (

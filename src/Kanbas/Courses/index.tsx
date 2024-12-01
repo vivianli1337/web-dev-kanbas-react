@@ -6,17 +6,55 @@ import Assignments from "./Assignments";
 import AssignmentEditor from "./Assignments/Editor";
 import { FaAlignJustify } from "react-icons/fa";
 import PeopleTable from "./People/Table";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector } from 'react-redux';
+
+// assignment
+import * as assignmentsClient from "./Assignments/client";
+import * as coursesClient from "./client";
+import { assignments } from "../Database";
+
+
 
 
 export default function Courses({ courses }: { courses: any[]; }) {
   const { cid } = useParams();
   const course = courses.find((course) => course._id === cid);
   const { pathname } = useLocation();
-  const [assignmentName, setAssignmentName] = useState("");
-  const addAssignment = () => {
-    console.log("Add assignment logic here");
+  // const [assignmentName, setAssignmentName] = useState("");
+  const [assignmentName, setAssignmentName] = useState<any[]>([]);
+  const { currentAssignment } = useSelector((state: any) => state.assignmentsReducer);
+  const fetchAssignments = async () => {
+    try {
+      const assignments = await coursesClient.findMyAssignments();
+      setAssignmentName(assignments);
+    } catch (error) {
+      console.error(error);
+    }
   };
+  useEffect(() => {
+    fetchAssignments();
+  }, [currentAssignment]);
+
+
+  const addAssignment = async () => {
+    // console.log("Add assignment logic here");
+    const newAssignment = await coursesClient.createAssignment(assignmentName);
+    setAssignmentName([...assignmentName, newAssignment]);
+  };
+  const deleteAssignment = async (aId: string) => {
+    const status = await assignmentsClient.deleteAssignment(aId);
+    setAssignmentName(assignments.filter((assignment) => course._id !== assignment.course));
+  };
+  const updateAssignment = async () => {
+    await assignmentsClient.updateAssignment(assignments);
+    setAssignmentName(assignments.map((a) => {
+      if (a.course === course._id) { return assignments; }
+      else { return a; }
+    })
+    );
+  };
+
 
   return (
     <div id="wd-courses">
@@ -40,13 +78,13 @@ export default function Courses({ courses }: { courses: any[]; }) {
               path="Assignments/:aId"
               element={
                 <AssignmentEditor
-                  // dialogTitle="Edit Assignment"
-                  // assignmentName={assignmentName}
-                  // setAssignmentName={setAssignmentName}
-                  // addAssignment={addAssignment}
-                  />
-                }
-              />            
+                // dialogTitle="Edit Assignment"
+                // assignmentName={assignmentName}
+                // setAssignmentName={setAssignmentName}
+                // addAssignment={addAssignment}
+                />
+              }
+            />
             <Route path="People" element={<PeopleTable />} />
           </Routes>
         </div>
