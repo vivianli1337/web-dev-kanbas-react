@@ -3,15 +3,27 @@ import * as db from "../../Database";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { addAssignment, updateAssignment } from "./reducer";
+import * as assignmentsClient from "./client";
+import { setAssignments, addAssignment, editAssignment, updateAssignment, deleteAssignment }
+  from "./reducer";
+import * as coursesClient from "../client";
+
 
 export default function AssignmentEditor() {
   const { cid, aId } = useParams();
   const { assignments } = useSelector((state: any) => state.assignmentsReducer)
   const dispatch = useDispatch();
+  const fetchAssignments = async () => {
+    const assignments = await coursesClient.findMyAssignments(cid as string);
+    dispatch(setAssignments(assignments));
+  };
+  useEffect(() => {
+    fetchAssignments();
+  }, []);
+
   const [assignment, setAssignment] = useState({
     _id: new Date().getTime().toString(),
-    id: new Date().getTime().toString(),
+    // id: new Date().getTime().toString(),
     title: "",
     description: " ",
     points: 100,
@@ -25,15 +37,27 @@ export default function AssignmentEditor() {
   const isReadOnly = currentUser.role === "STUDENT";
 
   const navigate = useNavigate();
-  const Save = () => {
-    if (!isReadOnly) {
-      if (aId !== "New") {
-        dispatch(updateAssignment(assignment))
-      } else {
-        dispatch(addAssignment(assignment));
-      }
-      navigate(`/Kanbas/Courses/${cid}/Assignments`);
+  // const Save = () => {
+  //   if (!isReadOnly) {
+  //     if (aId !== "New") {
+  //       dispatch(updateAssignment(assignment))
+  //     } else {
+  //       dispatch(addAssignment(assignment));
+  //     }
+  //     navigate(`/Kanbas/Courses/${cid}/Assignments`);
+  //   }
+  // };
+
+  const saveAssignment = async () => {
+    if (!cid) return;
+    if (aId === "New") {
+      const newAssignment = await coursesClient.createAssignment(cid, assignment);
+      dispatch(addAssignment(newAssignment));
+    } else {
+      await assignmentsClient.updateAssignment(assignment);
+      dispatch(updateAssignment(assignment));
     }
+    navigate(`/Kanbas/Courses/${cid}/Assignments`);
   };
 
   useEffect(() => {
@@ -127,15 +151,15 @@ export default function AssignmentEditor() {
                   <label htmlFor="wd-website-url" className="form-check-label">Website URL</label>
                 </div>
                 <div className="form-check">
-                  <input type="checkbox" id="wd-media-recordings" className="form-check-input" disabled={isReadOnly}/>
+                  <input type="checkbox" id="wd-media-recordings" className="form-check-input" disabled={isReadOnly} />
                   <label htmlFor="wd-media-recordings" className="form-check-label">Media Recordings</label>
                 </div>
                 <div className="form-check">
-                  <input type="checkbox" id="wd-student-annotation" className="form-check-input" disabled={isReadOnly}/>
+                  <input type="checkbox" id="wd-student-annotation" className="form-check-input" disabled={isReadOnly} />
                   <label htmlFor="wd-student-annotation" className="form-check-label">Student Annotation</label>
                 </div>
                 <div className="form-check">
-                  <input type="checkbox" id="wd-file-upload" className="form-check-input" disabled={isReadOnly}/>
+                  <input type="checkbox" id="wd-file-upload" className="form-check-input" disabled={isReadOnly} />
                   <label htmlFor="wd-file-upload" className="form-check-label">File Uploads</label>
                 </div>
               </div>
@@ -158,8 +182,8 @@ export default function AssignmentEditor() {
                 <label htmlFor="wd-due-date" className="me-2">Due</label>
                 <div className="d-flex">
                   <input type="date" id="wd-due-date" value={assignment.duedate} className="form-control w-50 me-2"
-                    onChange={(e) => setAssignment({ ...assignment, duedate: e.target.value })} disabled={isReadOnly}/>
-                  <input type="time" id="wd-due-time" value={assignment.duetime} className="form-control w-25" disabled={isReadOnly}/>
+                    onChange={(e) => setAssignment({ ...assignment, duedate: e.target.value })} disabled={isReadOnly} />
+                  <input type="time" id="wd-due-time" value={assignment.duetime} className="form-control w-25" disabled={isReadOnly} />
                 </div>
               </div>
 
@@ -172,7 +196,7 @@ export default function AssignmentEditor() {
                 <div className="col-md-6">
                   <label htmlFor="wd-available-until">Until</label>
                   <input type="date" id="wd-available-until" value="2024-05-20" className="form-control"
-                    onChange={(e) => setAssignment({ ...assignment, duedate: e.target.value })} disabled={isReadOnly}/>
+                    onChange={(e) => setAssignment({ ...assignment, duedate: e.target.value })} disabled={isReadOnly} />
                 </div>
               </div>
             </div>
@@ -182,7 +206,7 @@ export default function AssignmentEditor() {
         <hr />
         <div className="d-flex justify-content-end">
           <Link to={`/Kanbas/Courses/${cid}/Assignments`} className="btn btn-secondary me-2">Cancel</Link>
-          <button className="btn btn-danger" onClick={Save} disabled={isReadOnly}>Save</button>
+          <button className="btn btn-danger" onClick={saveAssignment} disabled={isReadOnly}>Save</button>
         </div>
       </div>
     </div>

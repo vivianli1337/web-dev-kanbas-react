@@ -7,13 +7,13 @@ import AssignmentEditor from "./Assignments/Editor";
 import { FaAlignJustify } from "react-icons/fa";
 import PeopleTable from "./People/Table";
 import React, { useState, useEffect } from "react";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // assignment
 import * as assignmentsClient from "./Assignments/client";
 import * as coursesClient from "./client";
 import { assignments } from "../Database";
-import { setAssignment, addAssignment, editAssignment, updateAssignment, deleteAssignment }
+import { setAssignments, addAssignment, editAssignment, updateAssignment, deleteAssignment }
     from "./Assignments/reducer";
 
 
@@ -25,11 +25,13 @@ export default function Courses({ courses }: { courses: any[]; }) {
   const { pathname } = useLocation();
   // const [assignmentName, setAssignmentName] = useState("");
   const [assignmentName, setAssignmentName] = useState<any[]>([]);
+  const dispatch = useDispatch();
   const { currentAssignment } = useSelector((state: any) => state.assignmentsReducer);
   const fetchAssignments = async () => {
     try {
-      const assignments = await coursesClient.findMyAssignments();
+      const assignments = await coursesClient.findMyAssignments(cid || "");
       setAssignmentName(assignments);
+      dispatch(setAssignments(assignments))
     } catch (error) {
       console.error(error);
     }
@@ -41,7 +43,7 @@ export default function Courses({ courses }: { courses: any[]; }) {
 
   const addAssignment = async () => {
     // console.log("Add assignment logic here");
-    const newAssignment = await coursesClient.createAssignment(assignmentName);
+    const newAssignment = await coursesClient.createAssignment(cid as string, assignmentName);
     setAssignmentName([...assignmentName, newAssignment]);
   };
   const deleteAssignment = async (aId: string) => {

@@ -4,6 +4,8 @@ import { FaTrash } from 'react-icons/fa';
 import { IoEllipsisVertical } from 'react-icons/io5';
 import GreenCheckmark from './GreenCheckmark';
 import { deleteAssignment } from './reducer'; 
+import * as assignmentsClient from "./client";
+
 
 export default function AssignmentControlButtons({ assignmentID }: { assignmentID: string }) {
   const dispatch = useDispatch();
@@ -13,12 +15,12 @@ export default function AssignmentControlButtons({ assignmentID }: { assignmentI
     setShowDeleteDialog(true);
   };
 
-  const handleConfirmDelete = () => {
-    dispatch(deleteAssignment(assignmentID)); 
+  const handleCancelDelete = () => {
     setShowDeleteDialog(false);
   };
-
-  const handleCancelDelete = () => {
+  const removeAssignment = async (assignmentID: string) => {
+    await assignmentsClient.deleteAssignment(assignmentID);
+    dispatch(deleteAssignment(assignmentID));
     setShowDeleteDialog(false);
   };
 
@@ -49,7 +51,7 @@ export default function AssignmentControlButtons({ assignmentID }: { assignmentI
                 <button type="button" className="btn btn-secondary" onClick={handleCancelDelete}>
                   Cancel
                 </button>
-                <button type="button" className="btn btn-danger" onClick={handleConfirmDelete}>
+                <button type="button" className="btn btn-danger" onClick={() => removeAssignment(assignmentID)}>
                   Delete
                 </button>
               </div>

@@ -4,20 +4,23 @@ import ModuleControlButtons from "./ModuleControlButtons ";
 import { MdOutlineAssignment } from "react-icons/md";
 import AssignmentControlButtons from "./AssignmentControlButtons";
 import { useParams } from "react-router";
-import * as db from "../../Database";
+// import * as db from "../../Database";
+
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { addAssignment, editAssignment, updateAssignment, deleteAssignment }
-    from "./reducer";
+// import { useEffect } from "react";
+// import { setAssignments, addAssignment, editAssignment, updateAssignment, deleteAssignment }
+//     from "./reducer";
+// import * as coursesClient from "../client";
+// import * as assignmentsClient from "./client";
 
 
 export default function Assignments() {
     const { cid } = useParams();
     const { currentUser } = useSelector((state: any) => state.accountReducer);
-    const { enrollments, users } = db;
     const { assignments } = useSelector((state: any) => state.assignmentsReducer);
     const dispatch = useDispatch();
-
+    
     return (
         <div id="wd-assignments">
             <AssignmentControls />
@@ -41,7 +44,7 @@ export default function Assignments() {
                     </div>
 
                     {assignments
-                        .filter((assignment: any) => assignment.course === cid)
+                        // .filter((assignment: any) => assignment.course === cid)
                         .map((assignment: any) => (
 
                             <li className="wd-lesson list-group-item p-3 ps-1">
