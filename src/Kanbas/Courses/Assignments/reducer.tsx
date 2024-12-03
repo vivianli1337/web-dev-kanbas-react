@@ -3,12 +3,17 @@ import { assignments } from "../../Database";
 
 const initialState = {
     assignments: assignments,
+    // assignments: [] as any,
 };
 
 const assignmentsSlice = createSlice({
     name: "assignments",
     initialState,
     reducers: {
+        setAssignment: (state, action) => {
+            state.assignments = action.payload;
+          },
+      
         addAssignment: (state, { payload: assignment }) => {
             const newAssignment = {
                 _id: new Date().getTime().toString(),
@@ -40,6 +45,8 @@ const assignmentsSlice = createSlice({
         },
     },
 });
-export const { addAssignment, deleteAssignment, updateAssignment, editAssignment } =
+export const { 
+    setAssignment,
+    addAssignment, deleteAssignment, updateAssignment, editAssignment } =
 assignmentsSlice.actions;
 export default assignmentsSlice.reducer;
