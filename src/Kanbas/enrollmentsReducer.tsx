@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { enrollments } from './Database';
+// import { enrollments } from './Database';
 
 const initialState = {
-  enrollments: enrollments,
+  // enrollments: enrollments,
+  enrollments: [],
 };
 
 const enrollmentsSlice = createSlice({
@@ -13,7 +14,7 @@ const enrollmentsSlice = createSlice({
       state.enrollments = enrollments;
     },
     addEnrollment(state, {payload: enrollment}) {
-      state.enrollments = [...state.enrollments, enrollment]
+      state.enrollments = [...state.enrollments, enrollment] as any;
     },
     deleteEnrollment(state, {payload: enrollmentId}) {
       state.enrollments = state.enrollments.filter(
