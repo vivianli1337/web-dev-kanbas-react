@@ -7,6 +7,7 @@ export default function AccountNavigation() {
     (state: any) => state.accountReducer);
   const links = currentUser ? ["Profile"] : ["Signin", "Signup"];
   // const links = ["Signin", "Signup", "Profile"]
+  // const active = (path: string) => (pathname.includes(path) ? "active" : "");
   const { pathname } = useLocation();
   return (
     <div id="wd-account-navigation" className="wd list-group fs-5 rounded-0">
@@ -19,6 +20,15 @@ export default function AccountNavigation() {
         </Link>
       ))
       }
+      {currentUser && currentUser.role === "ADMIN" && (
+        <Link
+          to={`/Kanbas/Account/Users`}
+          className={`list-group-item border-0 ${pathname.includes("Users") ? "active" : "text-danger"
+            }`}
+        >
+          Users
+        </Link>
+      )}
 
       {/* <Link id="wd-signin-link" to="/Kanbas/Account/Signin"
         className={`list-group-item ${pathname.includes("Signin") ? "active border-0" : "text-danger border border-0"}`}>Sign In</Link>
