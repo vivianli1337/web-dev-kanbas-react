@@ -8,6 +8,7 @@ export default function Users() {
     const [users, setUsers] = useState<any[]>([]);
     const fetchUsers = async () => {
         const users = await client.findAllUsers();
+        console.log(users)
         setUsers(users);
     };
     const { uid } = useParams();

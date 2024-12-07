@@ -1,13 +1,13 @@
 import { FaPlus } from "react-icons/fa6";
 import { BsSearch } from "react-icons/bs";
-import * as db from "../../Database";
+// import * as db from "../../Database";
 import { useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 
 export default function AssignmentControls() {
     const { currentUser } = useSelector((state: any) => state.accountReducer);
-    const { enrollments, users } = db;
+    // const { enrollments, users } = db;
     const navigate = useNavigate();
     const { cid, aId } = useParams();
 

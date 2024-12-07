@@ -29,7 +29,7 @@ export default function Courses({ courses }: { courses: any[]; }) {
   const { currentAssignment } = useSelector((state: any) => state.assignmentsReducer);
   const fetchAssignments = async () => {
     try {
-      const assignments = await coursesClient.findMyAssignments(cid || "");
+      const assignments = await coursesClient.findAssignmentsForCourses(cid || "");
       setAssignmentName(assignments);
       dispatch(setAssignments(assignments))
     } catch (error) {

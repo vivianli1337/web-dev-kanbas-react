@@ -7,7 +7,7 @@ const COURSES_API = `${REMOTE_SERVER}/api/courses`;
 export const createCourse = async (course: any) => {
     const { data } = await axiosWithCredentials.post(COURSES_API, course);
     return data;
-   };   
+};
 
 export const fetchAllCourses = async () => {
     const { data } = await axiosWithCredentials.get(COURSES_API);
@@ -40,20 +40,25 @@ export const createModuleForCourse = async (courseId: string, module: any) => {
 };
 
 // assigments
-export const findMyAssignments = async (courseId: string) => {
-    const { data } = await axios.get(`${COURSES_API}/${courseId}/assignments`);
-
+export const findAssignmentsForCourses = async (courseId: string) => {
+    const { data } = await axiosWithCredentials.get(`${COURSES_API}/${courseId}/assignments`);
     return data;
 };
 export const createAssignment = async (courseId: string, assignment: any) => {
-    const { data } = await axios.post(`${COURSES_API}/${courseId}/assignments`, assignment);
+    const { data } = await axiosWithCredentials.post(`${COURSES_API}/${courseId}/assignments`, assignment);
     return data;
 };
 
 // people table
 
+// export const findUsersForCourse = async (courseId: string) => {
+//     console.log(COURSES_API)
+//     const response = await axiosWithCredentials.get(`${COURSES_API}/${courseId}users`);
+//     return response.data;
+//    };
+
 export const findUsersForCourse = async (courseId: string) => {
-    const response = await axios.get(`${COURSES_API}/${courseId}/users`);
+    console.log(COURSES_API)
+    const response = await axiosWithCredentials.get(`${COURSES_API}/${courseId}/users`);
     return response.data;
-   };
-   
+};

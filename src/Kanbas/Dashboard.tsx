@@ -16,9 +16,9 @@ export default function Dashboard(
       updateEnrollment: (courseId: string, enrolled: boolean) => void
     }) {
   const { currentUser } = useSelector((state: any) => state.accountReducer);
-  const { enrollments } = useSelector((state: any) => state.enrollmentsReducer);
+  // const { enrollments } = useSelector((state: any) => state.enrollmentsReducer);
   const dispatch = useDispatch();
-  const [showAllCourses, setShowAllCourses] = useState(false);
+  // const [showAllCourses, setShowAllCourses] = useState(false);
 
   // had to comment all out for a6
   // const toggleEnrollments = () => {
@@ -34,20 +34,20 @@ export default function Dashboard(
   //   }
   // };
 
-  //enrollment
-  const saveEnrollment = async (event: any, course: any) => {
-    event.preventDefault();
-    const enrollment = await enrollmentsClient.createEnrollment(currentUser._id, course._id);
-    dispatch(addEnrollment(enrollment));
-  };
+  //enrollment a5
+  // const saveEnrollment = async (event: any, course: any) => {
+  //   event.preventDefault();
+  //   const enrollment = await enrollmentsClient.createEnrollment(currentUser._id, course._id);
+  //   dispatch(addEnrollment(enrollment));
+  // };
 
-  const removeEnrollment = async (event: any, enrollment: any) => {
-    event.preventDefault();
-    await enrollmentsClient.unenrollUserFromCourse(enrollment._id);
-    dispatch(deleteEnrollment(enrollment._id));
-  }
+  // const removeEnrollment = async (event: any, enrollment: any) => {
+  //   event.preventDefault();
+  //   await enrollmentsClient.unenrollUserFromCourse(enrollment._id);
+  //   dispatch(deleteEnrollment(enrollment._id));
+  // }
 
-  //enrollment
+  //enrollment a6
   useEffect(() => {
     const fetchEnrollments = async () => {
       console.log('fetching enrollments');
@@ -87,13 +87,13 @@ export default function Dashboard(
         </>
       )}
 
-      {currentUser.role === "STUDENT" &&
+      {/* {currentUser.role === "STUDENT" &&
         <button className="btn btn-primary float-end" id="wd-enroll-course-click" 
         // onClick={toggleEnrollments}
         >
           Enrollments
         </button>
-      }
+      } */}
 
       <h2 id="wd-dashboard-published">Published Courses ({courses.length})</h2> <hr />
       <div id="wd-dashboard-courses" className="row">
