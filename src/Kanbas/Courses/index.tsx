@@ -14,9 +14,7 @@ import * as assignmentsClient from "./Assignments/client";
 import * as coursesClient from "./client";
 import { assignments } from "../Database";
 import { setAssignments, addAssignment, editAssignment, updateAssignment, deleteAssignment }
-    from "./Assignments/reducer";
-
-
+  from "./Assignments/reducer";
 
 
 export default function Courses({ courses }: { courses: any[]; }) {
@@ -39,6 +37,18 @@ export default function Courses({ courses }: { courses: any[]; }) {
   useEffect(() => {
     fetchAssignments();
   }, [currentAssignment]);
+
+  const [users, setUsers] = useState<any[]>([]);
+  const fetchUsers = async () => {
+    if (!cid ) return []
+    const users = await coursesClient.findUsersForCourse(cid);
+    console.log(users)
+    setUsers(users);
+  };
+  // const { uid } = useParams();
+  useEffect(() => {
+    fetchUsers();
+  }, [cid]);
 
 
   const addAssignment = async () => {
@@ -89,7 +99,7 @@ export default function Courses({ courses }: { courses: any[]; }) {
                 />
               }
             />
-            <Route path="People" element={<PeopleTable />} />
+            <Route path="People" element={<PeopleTable users={users} />} />
           </Routes>
         </div>
       </div>
