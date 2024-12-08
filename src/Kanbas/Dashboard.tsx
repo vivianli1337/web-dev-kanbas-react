@@ -132,15 +132,6 @@ export default function Dashboard(
                           style={{ maxHeight: 100 }}
                         >
                           {course.description}
-                          {enrolling && (
-                            <button onClick={(event) => {
-                              event.preventDefault();
-                              updateEnrollment(course._id, !course.enrolled);
-                            }}
-                              className={`btn ${course.enrolled ? "btn-danger" : "btn-success"} float-end`} >
-                              {course.enrolled ? "Unenroll" : "Enroll"}
-                            </button>
-                          )}
                         </p>
 
 
