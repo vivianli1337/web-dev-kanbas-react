@@ -16,36 +16,36 @@ export default function Dashboard(
       updateEnrollment: (courseId: string, enrolled: boolean) => void
     }) {
   const { currentUser } = useSelector((state: any) => state.accountReducer);
-  // const { enrollments } = useSelector((state: any) => state.enrollmentsReducer);
+  const { enrollments } = useSelector((state: any) => state.enrollmentsReducer);
   const dispatch = useDispatch();
-  // const [showAllCourses, setShowAllCourses] = useState(false);
+  const [showAllCourses, setShowAllCourses] = useState(false);
 
   // had to comment all out for a6
-  // const toggleEnrollments = () => {
-  //   setShowAllCourses(state => !state);
-  // };
+  const toggleEnrollments = () => {
+    setShowAllCourses(state => !state);
+  };
 
-  // const checkEnrollment = (enrollment: any, course: any) =>
-  //   enrollment.user === currentUser._id && enrollment.course === course._id;
+  const checkEnrollment = (enrollment: any, course: any) =>
+    enrollment.user === currentUser._id && enrollment.course === course._id;
 
-  // const handleLinkClick = (event: any, course: any) => {
-  //   if (!enrollments.find((enrollment: any) => checkEnrollment(enrollment, course))) {
-  //     event.preventDefault();
-  //   }
-  // };
+  const handleLinkClick = (event: any, course: any) => {
+    if (!enrollments.find((enrollment: any) => checkEnrollment(enrollment, course))) {
+      event.preventDefault();
+    }
+  };
 
   //enrollment a5
-  // const saveEnrollment = async (event: any, course: any) => {
-  //   event.preventDefault();
-  //   const enrollment = await enrollmentsClient.createEnrollment(currentUser._id, course._id);
-  //   dispatch(addEnrollment(enrollment));
-  // };
+  const saveEnrollment = async (event: any, course: any) => {
+    event.preventDefault();
+    const enrollment = await enrollmentsClient.createEnrollment(currentUser._id, course._id);
+    dispatch(addEnrollment(enrollment));
+  };
 
-  // const removeEnrollment = async (event: any, enrollment: any) => {
-  //   event.preventDefault();
-  //   await enrollmentsClient.unenrollUserFromCourse(enrollment._id);
-  //   dispatch(deleteEnrollment(enrollment._id));
-  // }
+  const removeEnrollment = async (event: any, enrollment: any) => {
+    event.preventDefault();
+    await enrollmentsClient.unenrollUserFromCourse(enrollment._id);
+    dispatch(deleteEnrollment(enrollment._id));
+  }
 
   //enrollment a6
   useEffect(() => {
@@ -132,10 +132,21 @@ export default function Dashboard(
                           style={{ maxHeight: 100 }}
                         >
                           {course.description}
+                          {enrolling && (
+                            <button onClick={(event) => {
+                              event.preventDefault();
+                              updateEnrollment(course._id, !course.enrolled);
+                            }}
+                              className={`btn ${course.enrolled ? "btn-danger" : "btn-success"} float-end`} >
+                              {course.enrolled ? "Unenroll" : "Enroll"}
+                            </button>
+                          )}
                         </p>
 
-                        {/* {showAllCourses ? (
-                          !enrollment ? (
+
+                        {showAllCourses ? 
+                        (
+                          !enrollments ? (
                             <button className="btn btn-success" onClick={(event) => {
                               // event.preventDefault();
                               // dispatch(addEnrollment({ _id: uuid.v4(), user: currentUser._id, course: course._id }));
@@ -147,15 +158,16 @@ export default function Dashboard(
                             <button className="btn btn-danger" onClick={(event) => {
                               // event.preventDefault();
                               // dispatch(deleteEnrollment(enrollment._id));
-                              removeEnrollment(event, enrollment)
+                              removeEnrollment(event, enrollments)
 
                             }}>
                               Unenroll
                             </button>
                           )
-                        ) : (
+                        ) 
+                        : (
                           <button className="btn btn-primary"> Go </button>
-                        )} */}
+                        )}
 
                         {currentUser.role === "FACULTY" && (
                           <>
